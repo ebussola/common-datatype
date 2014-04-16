@@ -43,4 +43,10 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals((string)$datetime, (string)$datetime2);
     }
 
+    public function testUnavailableLanguageException() {
+        $this->setExpectedException('\ebussola\common\datatype\exception\UnavailableLanguage');
+
+        new \ebussola\common\datatype\DateTime('now', null, 'jp');
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace ebussola\common\datatype;
+use ebussola\common\datatype\exception\UnavailableLanguage;
 
 /**
  * Author: Leonardo Branco Shinagawa
@@ -11,17 +12,22 @@ class DateTime extends \DateTime implements \Serializable
 {
 
     /**
-     * @var Array
+     * @var array
      */
-    static private $language;
+    static private $languages;
 
     /**
      * @var string
      */
     protected $format;
 
-    public function __construct($time = 'now', \DateTimeZone $timezone=null) {
-        $this->setupDefaultFormat();
+    /**
+     * @var string
+     */
+    protected $locale;
+
+    public function __construct($time = 'now', \DateTimeZone $timezone=null, $locale=null) {
+        $this->setupDefaultFormat($locale);
 
         if ($time instanceof \DateTime) {
             $time = $time->format('c');
@@ -65,12 +71,18 @@ class DateTime extends \DateTime implements \Serializable
     }
 
     protected function getLanguage() {
-        if (self::$language === null) {
-            $path = __DIR__ . '/datetime/languages/' . \Locale::getDefault() . '.php';
-            self::$language = include($path);
+        $locale = $this->locale;
+
+        if (!isset(self::$languages[$locale])) {
+            $path = __DIR__ . '/datetime/languages/' . $locale . '.php';
+            if (file_exists($path)) {
+                self::$languages[$locale] = include($path);
+            } else {
+                throw new UnavailableLanguage();
+            }
         }
 
-        return self::$language;
+        return self::$languages[$locale];
     }
 
     /**
@@ -98,7 +110,12 @@ class DateTime extends \DateTime implements \Serializable
         return $this;
     }
 
-    protected function setupDefaultFormat() {
+    protected function setupDefaultFormat($locale=null) {
+        if ($locale === null) {
+            $locale = \Locale::getDefault();
+        }
+        $this->locale = $locale;
+
         $this->format = $this->getLanguage()['date_format'] . ' ' . $this->getLanguage()['time_format'];
     }
 

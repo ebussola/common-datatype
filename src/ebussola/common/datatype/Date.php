@@ -15,8 +15,8 @@ class Date extends DateTime
      */
     protected $format;
 
-    public function __construct ($time='now', \DateTimeZone $timezone=null) {
-        parent::__construct($time, $timezone);
+    public function __construct ($time='now', \DateTimeZone $timezone=null, $locale=null) {
+        parent::__construct($time, $timezone, $locale);
         $this->setTime(0, 0, 0);
     }
 
@@ -24,7 +24,8 @@ class Date extends DateTime
         return $this->format($this->format);
     }
 
-    protected function setupDefaultFormat() {
+    protected function setupDefaultFormat($locale=null) {
+        parent::setupDefaultFormat($locale);
         $this->format = $this->getLanguage()['date_format'];
     }
 

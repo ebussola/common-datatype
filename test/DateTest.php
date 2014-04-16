@@ -8,7 +8,13 @@
 
 class DateTest extends PHPUnit_Framework_TestCase {
 
-    public function test
+    public function setUp() {
+        locale_set_default('pt_BR');
+    }
+
+    public function testToString() {
+        $date = new \ebussola\common\datatype\Date('2014-04-16');
+        $this->assertEquals('16/04/2014', (string)$date);
+    }
 
 }
- 
