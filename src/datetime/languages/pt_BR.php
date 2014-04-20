@@ -2,7 +2,7 @@
 
 return array(
     'date_format' => 'd/m/Y',
-    'time_format' => 'h:i:s',
+    'time_format' => 'H:i:s',
 
     'language' => array(
         'Janeiro', 'Jan',
