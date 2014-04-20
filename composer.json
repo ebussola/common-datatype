@@ -9,8 +9,8 @@
     ],
     "minimum-stability": "stable",
     "autoload" : {
-        "psr-0" : {
-            "ebussola\\common\\datatype" : "src/"
+        "psr-4" : {
+            "ebussola\\common\\datatype\\" : "src/"
         }
     },
 
