@@ -2,8 +2,7 @@
 
 namespace ebussola\common\datatype;
 
-use ebussola\common\capacity\Arrayable;
-use ebussola\common\exception\InvalidEnum;
+use ebussola\common\datatype\exception\InvalidEnum;
 use ebussola\common\capacity\Validatable;
 
 /**
@@ -54,7 +53,12 @@ abstract class Enum implements Validatable {
     public function isValid($throwException = false) {
         if (!in_array($this->value, $this->defaults())) {
             if ($throwException) {
-                throw new InvalidEnum("Wrong enumerator value ({$this->enumId()})");
+                $invalid_enum = new InvalidEnum("Wrong enumerator value ({$this->enumId()})");
+                $invalid_enum->chosen = $this->value;
+                $invalid_enum->available_options = $this->defaults();
+
+                throw $invalid_enum;
+
             } else {
                 return false;
             }

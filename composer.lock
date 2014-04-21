@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3f4118150f93da1228143df5e3f95135",
+    "hash": "31766b607daaab460584f015ecd7e50c",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -68,6 +68,38 @@
                 "string"
             ],
             "time": "2013-01-10 21:49:15"
+        },
+        {
+            "name": "ebussola/common-capacity",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ebussola/common-capacity.git",
+                "reference": "b00843819cbc4520cdbb7fea664edd76c6315b02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ebussola/common-capacity/zipball/b00843819cbc4520cdbb7fea664edd76c6315b02",
+                "reference": "b00843819cbc4520cdbb7fea664edd76c6315b02",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ebussola\\common\\capacity\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leonardo Shinagawa",
+                    "email": "leonardo@ebussola.com"
+                }
+            ],
+            "time": "2014-04-19 20:49:24"
         }
     ],
     "packages-dev": [
