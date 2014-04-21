@@ -48,7 +48,7 @@ abstract class Enum implements Validatable {
      * @param bool $throwException
      * @return boolean
      * Returns True on success or False on fail
-     * If the flag $throwException is true, an \InvalidArgumentException will be throwed on fail
+     * If the flag $throwException is true, an \ebussola\common\datatype\exception\InvalidEnum will be throwed on fail
      */
     public function isValid($throwException = false) {
         if (!in_array($this->value, $this->defaults())) {
