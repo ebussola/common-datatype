@@ -2,11 +2,8 @@
 
 namespace ebussola\common\datatype\datetime;
 
-use ebussola\common\datatype\Date;
-use ebussola\common\ArrayList;
-
 /**
- * Author: Leonardo Branco Shinagawa
+ * Author: Leonardo Shinagawa
  * Date: 12/04/12
  * Time: 17:32
  */
@@ -83,7 +80,7 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * 0 on failure.
      */
     public function key() {
-        /** @var \ebussola\common\datatype\Date $date  */
+        /** @var \ebussola\common\datatype\datetime\Date $date  */
         $date = $this->storage[$this->pointer][0];
         return $date->format('Y-m-d');
     }

@@ -13,7 +13,7 @@ class DateTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testToString() {
-        $date = new \ebussola\common\datatype\Date('2014-04-16');
+        $date = new \ebussola\common\datatype\datetime\Date('2014-04-16');
         $this->assertEquals('16/04/2014', (string)$date);
     }
 

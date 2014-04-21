@@ -1,9 +1,11 @@
 <?php
 
-namespace ebussola\common\datatype;
+namespace ebussola\common\datatype\datetime;
+
+use ebussola\common\datatype\DateTime;
 
 /**
- * Author: Leonardo Branco Shinagawa
+ * Author: Leonardo Shinagawa
  * Date: 10/02/12
  * Time: 11:52
  */

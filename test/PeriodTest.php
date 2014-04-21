@@ -1,6 +1,6 @@
 <?php
-use ebussola\common\datatype\Date;
-use ebussola\common\datatype\Time;
+use ebussola\common\datatype\datetime\Date;
+use ebussola\common\datatype\datetime\Time;
 
 /**
  * Created by PhpStorm.
@@ -13,7 +13,7 @@ class PeriodTest extends PHPUnit_Framework_TestCase {
 
     public function testGeneralUse() {
         locale_set_default('en');
-        $period = new \ebussola\common\datatype\Period(new Date('2014-04-01'), 1, new Date('2014-04-5'));
+        $period = new \ebussola\common\datatype\datetime\Period(new Date('2014-04-01'), 1, new Date('2014-04-5'));
 
         $i = 1;
         foreach ($period as $date) {
@@ -42,13 +42,13 @@ class PeriodTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testEndDateIncremental() {
-        $period = new \ebussola\common\datatype\Period(new Date('2014-04-01'), 1, 4);
+        $period = new \ebussola\common\datatype\datetime\Period(new Date('2014-04-01'), 1, 4);
         $this->assertCount(5, $period);
     }
 
     public function testPeriodByTime() {
         locale_set_default('pt_BR');
-        $period = new \ebussola\common\datatype\Period(new Time('13:00'), new DateInterval('PT1H'), new Time('18:00'));
+        $period = new \ebussola\common\datatype\datetime\Period(new Time('13:00'), new DateInterval('PT1H'), new Time('18:00'));
 
         $i = 1;
         foreach ($period as $time) {
