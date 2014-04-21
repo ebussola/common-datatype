@@ -18,6 +18,6 @@
         "phpunit/phpunit": "3.7.34"
     },
     "require": {
-
+        "doctrine/inflector": "v1.0"
     }
 }
