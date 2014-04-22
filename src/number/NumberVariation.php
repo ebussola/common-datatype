@@ -48,7 +48,11 @@ class NumberVariation extends Number {
      * @param Number $number
      * @return boolean
      */
-    public function isEqual(Number $number) {
+    public function isEqual($number) {
+        if (!$number instanceof Number) {
+            $number = new Number($number);
+        }
+
         $l1 = clone $this;
         $l2 = clone $this;
         $l1->bcadd($this->getLimitUp());
@@ -61,22 +65,30 @@ class NumberVariation extends Number {
      * @param Number $number
      * @return bool
      */
-    public function isGreater(Number $number) {
+    public function isGreater($number) {
+        if (!$number instanceof Number) {
+            $number = new Number($number);
+        }
+
         $l1 = clone $this;
         $l1->bcadd($this->getLimitUp());
 
-        return $number->isGreater($l1);
+        return $number->isLess($l1);
     }
 
     /**
      * @param Number $number
      * @return bool
      */
-    public function isLess(Number $number) {
+    public function isLess($number) {
+        if (!$number instanceof Number) {
+            $number = new Number($number);
+        }
+
         $l2 = clone $this;
         $l2->bcadd($this->getLimitDown());
 
-        return $number->isLess($l2);
+        return $number->isGreater($l2);
     }
 
     /**
