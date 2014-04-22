@@ -2,60 +2,69 @@
 
 namespace ebussola\common\datatype;
 
-use ebussola\common\exception\InvalidUrl;
-use ebussola\common\capacity\Validatable;
-
 /**
  * User: Leonardo Shinagawa
  * Date: 15/08/12
  * Time: 20:05
  */
-class Url implements Validatable {
+class Url {
 
     /**
-     * @var String
+     * @var string
+     * The full address
      */
-    private $fullAddress;
+    public $full_address;
 
     /**
-     * @var String
+     * @var string
+     * The protocol used on the address
+     * http, https, ftp...
      */
-    private $scheme;
+    public $scheme;
 
     /**
-     * @var String
+     * @var string
+     * eg.: www.ebussola.com
      */
-    private $host;
+    public $host;
 
     /**
-     * @var String
+     * @var string
      */
-    private $port;
+    public $port;
 
     /**
-     * @var String
+     * @var string
      */
-    private $user;
+    public $user;
 
     /**
-     * @var String
+     * @var string
      */
-    private $pass;
+    public $pass;
 
     /**
-     * @var String
+     * @var string
      */
-    private $path;
+    public $path;
 
     /**
-     * @var String
+     * @var string
+     * Fragment is the part after a # used on single-page applications or to make an anchor
      */
-    private $fragment;
+    public $fragment;
 
     /**
-     * @var Array
+     * @var array
+     * The query string separated by key=>value in array format
      */
-    private $query;
+    public $query;
+
+    /**
+     * @var string
+     * The query string in string format
+     */
+    public $query_string;
 
     /**
      * @param String $address
@@ -70,33 +79,112 @@ class Url implements Validatable {
      * @param String $address
      */
     public function setAddress($address) {
-        $this->fullAddress = filter_var($address, FILTER_SANITIZE_URL);
-        $info = parse_url($this->fullAddress);
+        $this->full_address = filter_var($address, FILTER_SANITIZE_URL);
+        $info = parse_url($this->full_address);
 
-        $this->scheme = $info['scheme'];
-        $this->host = $info['host'];
-        $this->port = $info['port'];
-        $this->user = $info['user'];
-        $this->pass = $info['pass'];
-        $this->path = $info['path'];
+        $this->scheme = isset($info['scheme']) ? $info['scheme'] : null;
+        $this->host = isset($info['host']) ? $info['host'] : null;
+        $this->port = isset($info['port']) ? $info['port'] : null;
+        $this->user = isset($info['user']) ? $info['user'] : null;
+        $this->pass = isset($info['pass']) ? $info['pass'] : null;
+        $this->path = isset($info['path']) ? $info['path'] : null;
         $queries = array();
-        parse_str($info['query'], $queries);
-        $this->query = $queries;
-        $this->fragment = $info['fragment'];
+        if (isset($info['query'])) {
+            parse_str($info['query'], $queries);
+            $this->query = $queries;
+            $this->query_string = http_build_query($this->query);
+        }
+        $this->fragment = isset($info['fragment']) ? $info['fragment'] : null;
     }
 
     /**
-     * @return String
+     * @param $scheme
+     * @return Url
      */
-    public function getAddress() {
-        return $this->fullAddress;
+    public function setScheme($scheme) {
+        $this->scheme = $scheme;
+        $this->assembleUrl();
+
+        return $this;
     }
 
     /**
-     * @return Array
+     * @param String $host
+     * @return Url
      */
-    public function getArrayQuery() {
-        return $this->query;
+    public function setHost($host) {
+        $this->host = $host;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param String $port
+     * @return Url
+     */
+    public function setPort($port) {
+        $this->port = $port;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param String$user
+     * @return Url
+     */
+    public function setUser($user) {
+        $this->user = $user;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param String $pass
+     * @return Url
+     */
+    public function setPass($pass) {
+        $this->pass = $pass;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param String $path
+     * @return Url
+     */
+    public function setPath($path) {
+        $this->path = $path;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param array $query
+     *
+     * @return Url
+     */
+    public function setQuery(array $query) {
+        $this->query = $query;
+        $this->assembleUrl();
+
+        return $this;
+    }
+
+    /**
+     * @param string $fragment
+     *
+     * @return Url
+     */
+    public function setFragment($fragment) {
+        $this->fragment = $fragment;
+        $this->assembleUrl();
+
+        return $this;
     }
 
     /**
@@ -123,166 +211,13 @@ class Url implements Validatable {
             $address .= $this->path;
         }
         if (count($this->query) > 0) {
-            $address .= '?' . $this->getQuery();
+            $address .= '?' . $this->query_string;
         }
         if (!empty($this->fragment)) {
             $address .= '#' . $this->fragment;
         }
 
-        $this->fullAddress = $address;
-    }
-
-    /**
-     * @param bool $throwException
-     * @return boolean
-     * Returns True on success or False on fail
-     * If the flag $throwException is true, an \InvalidArgumentException will be throwed on fail
-     */
-    public function isValid($throwException = false) {
-        if (empty($this->fullAddress)) {
-            if ($throwException) {
-                throw new InvalidUrl('Url wasn\'t defined');
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param $scheme
-     * @return Url
-     */
-    public function setScheme($scheme) {
-        $this->scheme = $scheme;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String $host
-     * @return Url
-     */
-    public function setHost($host) {
-        $this->host = $host;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String $port
-     * @return Url
-     */
-    public function setPort($port) {
-        $this->port = $port;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String$user
-     * @return Url
-     */
-    public function setUser($user) {
-        $this->user = $user;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String $pass
-     * @return Url
-     */
-    public function setPass($pass) {
-        $this->pass = $pass;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String $path
-     * @return Url
-     */
-    public function setPath($path) {
-        $this->path = $path;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param Array $query
-     * @return Url
-     */
-    public function setQuery(Array $query) {
-        $this->query = $query;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @param String $fragment
-     * @return Url
-     */
-    public function setFragment($fragment) {
-        $this->fragment = $fragment;
-        $this->assembleUrl();
-        return $this;
-    }
-
-    /**
-     * @return Array
-     */
-    public function getQuery() {
-        return $this->query;
-    }
-
-    /**
-     * @return string
-     */
-    public function getQueryString() {
-        return http_build_query($this->query);
-    }
-
-    /**
-     * @return String
-     */
-    public function getScheme() {
-        return $this->scheme;
-    }
-
-    /**
-     * @return String
-     */
-    public function getHost() {
-        return $this->host;
-    }
-
-    /**
-     * @return String
-     */
-    public function getPort() {
-        return $this->port;
-    }
-
-    /**
-     * @return String
-     */
-    public function getUser() {
-        return $this->user;
-    }
-
-    /**
-     * @return String
-     */
-    public function getPath() {
-        return $this->path;
-    }
-
-    /**
-     * @return String
-     */
-    public function getFragment() {
-        return $this->fragment;
+        $this->full_address = $address;
     }
 
 }
