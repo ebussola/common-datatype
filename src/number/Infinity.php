@@ -32,14 +32,14 @@ class Infinity extends Number {
      * @return bool
      */
     public function isNegative() {
-        return $this->isNegative();
+        return $this->isNegative;
     }
 
     /**
      * @return bool
      */
     public function isPositive() {
-        return !$this->isNegative();
+        return !$this->isNegative;
     }
 
     /**

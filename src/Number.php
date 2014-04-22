@@ -16,22 +16,22 @@ class Number {
     /**
      * @var string
      */
-    private $value;
+    protected $value;
 
     /**
      * @var int
      */
-    private $decimals = 2;
+    protected $decimals = 2;
 
     /**
      * @var bool
      */
-    private $isNegative = false;
+    protected $isNegative = false;
 
     /**
      * @var integer
      */
-    private $precision = 14;
+    protected $precision = 14;
 
     /**
      * @param string $value
