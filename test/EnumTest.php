@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: shina
+ * User: Leonardo Shinagawa
  * Date: 21/04/14
  * Time: 12:07
  */

@@ -3,7 +3,7 @@ use ebussola\common\datatype\Number;
 
 /**
  * Created by PhpStorm.
- * User: shina
+ * User: Leonardo Shinagawa
  * Date: 21/04/14
  * Time: 21:18
  */
