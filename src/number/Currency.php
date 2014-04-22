@@ -19,7 +19,17 @@ class Currency extends Number {
     /**
      * @var string
      */
-    private $format;
+    protected $format;
+
+    /**
+     * @var string
+     */
+    protected $locale;
+
+    public function __construct($value = 0, $locale=null) {
+        parent::__construct($value);
+        $this->locale = $locale;
+    }
 
     public function __toString() {
         $result = $this->format();
@@ -63,7 +73,8 @@ class Currency extends Number {
     }
 
     private function format() {
-        $numberFormatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);
+        $locale = $this->locale === null ? \Locale::getDefault() : $this->locale;
+        $numberFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         $result = $numberFormatter->format($this->getValue());
 
         if ($this->format !== null || self::$globalFormat !== null) {

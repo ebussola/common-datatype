@@ -12,7 +12,7 @@ use ebussola\common\datatype\datetime\Time;
 class PeriodTest extends PHPUnit_Framework_TestCase {
 
     public function testGeneralUse() {
-        locale_set_default('en');
+        locale_set_default('en_US');
         $period = new \ebussola\common\datatype\datetime\Period(new Date('2014-04-01'), 1, new Date('2014-04-5'));
 
         $i = 1;
