@@ -2,9 +2,6 @@
 
 namespace ebussola\common\datatype;
 
-use ebussola\common\exception\InvalidNumber;
-use ebussola\common\capacity\Validatable;
-
 
 /**
  * @method \ebussola\common\datatype\Number bcadd($number) make the calc and return itself
@@ -14,7 +11,7 @@ use ebussola\common\capacity\Validatable;
  *
  * @version 1.0b
  */
-class Number implements Validatable {
+class Number {
 
     /**
      * @var string
@@ -207,22 +204,24 @@ class Number implements Validatable {
     /**
      * Number OF $value is what percentage?
      *
-     * @param \ebussola\common\datatype\Number|String $value
+     * @param \ebussola\common\datatype\Number | String $value
      * @return number\Percentage
      */
     public function of($value) {
         $number = clone $this;
+
         return new number\Percentage($number->bcdiv($value)->bcmul(100)->getValue());
     }
 
     /**
      * Number IS $percentage of what Number?
      *
-     * @param Number|float $percentage
+     * @param Number | float $percentage
      * @return Number
      */
     public function is($percentage) {
         $number = clone $this;
+
         return $number->bcdiv($percentage);
     }
 
@@ -238,23 +237,6 @@ class Number implements Validatable {
      */
     public function getPrecision() {
         return $this->precision;
-    }
-
-    /**
-     * @param bool $throwException
-     * @return boolean
-     * Returns True on success or False on fail
-     * If the flag $throwException is true, an \InvalidArgumentException will be throwed on fail
-     */
-    public function isValid($throwException = false) {
-        if (!is_numeric($this->value)) {
-            if ($throwException) {
-                throw new InvalidNumber("Invalid value, must be an numeric value.");
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
