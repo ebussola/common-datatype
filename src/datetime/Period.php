@@ -80,6 +80,7 @@ class Period implements \Iterator, \Countable
      */
     public function count() {
         $i = 0;
+        /** @noinspection PhpUnusedLocalVariableInspection */
         foreach ($this as $date) {
             $i++;
         }
@@ -117,7 +118,7 @@ class Period implements \Iterator, \Countable
      */
     public function key()
     {
-        return (string) $this->current;
+        return $this->current->format('c');
     }
 
     /**

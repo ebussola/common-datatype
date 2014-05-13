@@ -8,10 +8,11 @@ use ebussola\common\datatype\datetime\Time;
  * Date: 20/04/14
  * Time: 13:33
  */
+class PeriodTest extends PHPUnit_Framework_TestCase
+{
 
-class PeriodTest extends PHPUnit_Framework_TestCase {
-
-    public function testGeneralUse() {
+    public function testGeneralUse()
+    {
         locale_set_default('en_US');
         $period = new \ebussola\common\datatype\datetime\Period(new Date('2014-04-01'), 1, new Date('2014-04-5'));
 
@@ -41,12 +42,14 @@ class PeriodTest extends PHPUnit_Framework_TestCase {
         $this->assertCount(5, $period);
     }
 
-    public function testEndDateIncremental() {
+    public function testEndDateIncremental()
+    {
         $period = new \ebussola\common\datatype\datetime\Period(new Date('2014-04-01'), 1, 4);
         $this->assertCount(5, $period);
     }
 
-    public function testPeriodByTime() {
+    public function testPeriodByTime()
+    {
         locale_set_default('pt_BR');
         $period = new \ebussola\common\datatype\datetime\Period(new Time('13:00'), new DateInterval('PT1H'), new Time('18:00'));
 
@@ -77,6 +80,37 @@ class PeriodTest extends PHPUnit_Framework_TestCase {
         }
 
         $this->assertCount(6, $period);
+    }
+
+    public function testPeriodUsingOriginalDateTime()
+    {
+        $period = new \ebussola\common\datatype\datetime\Period(new \DateTime('2014-04-01'), 1, new \DateTime('2014-04-5'));
+
+        $i = 1;
+        /** @var \DateTime $date */
+        foreach ($period as $date) {
+            switch ($i) {
+                case 1 :
+                    $this->assertEquals('04/01/2014', $date->format('m/d/Y'));
+                    break;
+                case 2 :
+                    $this->assertEquals('04/02/2014', $date->format('m/d/Y'));
+                    break;
+                case 3 :
+                    $this->assertEquals('04/03/2014', $date->format('m/d/Y'));
+                    break;
+                case 4 :
+                    $this->assertEquals('04/04/2014', $date->format('m/d/Y'));
+                    break;
+                case 5 :
+                    $this->assertEquals('04/05/2014', $date->format('m/d/Y'));
+                    break;
+            }
+
+            $i++;
+        }
+
+        $this->assertCount(5, $period);
     }
 
 }
