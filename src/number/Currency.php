@@ -33,7 +33,7 @@ class Currency extends Number {
 
     public function __toString() {
         $result = $this->format();
-        if ($this->isNegative()) {
+        if ($this->isNegative() && substr($result, 0, 1) !== '(') {
             $result = '(' . str_replace('-', '', $result) . ')';
         }
 
@@ -84,6 +84,9 @@ class Currency extends Number {
                 // if the local format was not setted, the global format is used
                 $this->format = self::$globalFormat;
             }
+
+            // remove the parenthesis indicating negative value, it will be placed afterwards
+            $result = trim($result, '()');
 
             $symbol = $numberFormatter->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
             $number = trim(str_replace($symbol, '', $result));
