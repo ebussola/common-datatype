@@ -96,7 +96,7 @@ class Period implements \Iterator, \Countable
      */
     public function current()
     {
-        return $this->current;
+        return clone $this->current;
     }
 
     /**
