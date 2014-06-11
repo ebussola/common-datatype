@@ -6,6 +6,8 @@ namespace ebussola\common\datatype;
  * User: Leonardo Shinagawa
  * Date: 15/08/12
  * Time: 20:05
+ *
+ * @property $full_address string
  */
 class Url {
 
@@ -13,7 +15,7 @@ class Url {
      * @var string
      * The full address
      */
-    public $full_address;
+    protected $full_address;
 
     /**
      * @var string
@@ -79,8 +81,10 @@ class Url {
      * @param String $address
      */
     public function setAddress($address) {
-        $this->full_address = filter_var($address, FILTER_SANITIZE_URL);
-        $info = parse_url($this->full_address);
+        $full_address = filter_var($address, FILTER_SANITIZE_URL);
+        $info = parse_url($full_address);
+
+        $this->full_address = $full_address;
 
         $this->scheme = isset($info['scheme']) ? $info['scheme'] : null;
         $this->host = isset($info['host']) ? $info['host'] : null;
@@ -97,94 +101,15 @@ class Url {
         $this->fragment = isset($info['fragment']) ? $info['fragment'] : null;
     }
 
-    /**
-     * @param $scheme
-     * @return Url
-     */
-    public function setScheme($scheme) {
-        $this->scheme = $scheme;
-        $this->assembleUrl();
+    public function __get($name)
+    {
+        if ($name === 'full_address') {
+            $this->assembleUrl();
 
-        return $this;
-    }
+            return $this->full_address;
+        }
 
-    /**
-     * @param String $host
-     * @return Url
-     */
-    public function setHost($host) {
-        $this->host = $host;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param String $port
-     * @return Url
-     */
-    public function setPort($port) {
-        $this->port = $port;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param String$user
-     * @return Url
-     */
-    public function setUser($user) {
-        $this->user = $user;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param String $pass
-     * @return Url
-     */
-    public function setPass($pass) {
-        $this->pass = $pass;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param String $path
-     * @return Url
-     */
-    public function setPath($path) {
-        $this->path = $path;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param array $query
-     *
-     * @return Url
-     */
-    public function setQuery(array $query) {
-        $this->query = $query;
-        $this->assembleUrl();
-
-        return $this;
-    }
-
-    /**
-     * @param string $fragment
-     *
-     * @return Url
-     */
-    public function setFragment($fragment) {
-        $this->fragment = $fragment;
-        $this->assembleUrl();
-
-        return $this;
+        return null;
     }
 
     /**
@@ -211,6 +136,7 @@ class Url {
             $address .= $this->path;
         }
         if (count($this->query) > 0) {
+            $this->query_string = http_build_query($this->query);
             $address .= '?' . $this->query_string;
         }
         if (!empty($this->fragment)) {
