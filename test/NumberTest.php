@@ -81,6 +81,25 @@ class NumberTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(100, $another_num->getValue());
     }
 
+    public function testPercentageIntegrations()
+    {
+        $percent = new \ebussola\common\datatype\number\Percentage(15);
+        $number = new \ebussola\common\datatype\Number(500);
+        $this->assertEquals('575,00', (string)$number->bcadd($percent));
+
+        $percent = new \ebussola\common\datatype\number\Percentage(15);
+        $number = new \ebussola\common\datatype\Number(500);
+        $this->assertEquals('425,00', (string)$number->bcsub($percent));
+
+        $percent = new \ebussola\common\datatype\number\Percentage(15);
+        $number = new \ebussola\common\datatype\Number(500);
+        $this->assertEquals('37.500,00', (string)$number->bcmul($percent));
+
+        $percent = new \ebussola\common\datatype\number\Percentage(15);
+        $number = new \ebussola\common\datatype\Number(500);
+        $this->assertEquals('6,67', (string)$number->bcdiv($percent));
+    }
+
     public function testPreserve() {
         $num = new Number(123);
         $new_num = $num->preserve()->bcsub(23);

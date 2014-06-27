@@ -113,11 +113,12 @@ class Number {
             switch ($name) {
                 case 'bcmul' :
                 case 'bcdiv' :
-                    $value->bcdiv(100);
+                    $value->bcdiv(100)
+                        ->bcmul($this->getValue());
                     break;
 
                 default :
-                    $value->of($this);
+                    $value = $value->of($this);
                     break;
             }
         } elseif (!$value instanceof Number) {
@@ -222,7 +223,11 @@ class Number {
     public function is($percentage) {
         $number = clone $this;
 
-        return $number->bcdiv($percentage);
+        if ($percentage instanceof Number) {
+            $percentage = $percentage->getValue();
+        }
+
+        return $number->bcmul(100)->bcdiv($percentage);
     }
 
     /**
