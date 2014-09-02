@@ -12,6 +12,15 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         locale_set_default('pt_BR');
     }
 
+    public function testDefaultLocaleUsPosix() {
+        locale_set_default('en_US_POSIX');
+
+        $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:00:00');
+        $datetime_str = (string) $datetime;
+
+        $this->assertEquals('08/19/2014 03:00:00 am', $datetime_str);
+    }
+
     public function testToString() {
         $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:00:00');
         $datetime_str = (string) $datetime;
