@@ -33,7 +33,12 @@ class DateTime extends \DateTime implements \Serializable
             $time = $time->format('c');
         }
 
-        parent::__construct($time, $timezone);
+        if (is_int($time) && $time >= 0) {
+            parent::__construct('now', $timezone);
+            $this->setTimestamp($time);
+        } else {
+            parent::__construct($time, $timezone);
+        }
     }
 
     public function __toString() {

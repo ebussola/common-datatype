@@ -58,4 +58,15 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         new \ebussola\common\datatype\DateTime('now', null, 'jp');
     }
 
+    public function testInstantiationWithTimestamp()
+    {
+        $datetime = new \ebussola\common\datatype\DateTime(1415034405);
+        $this->assertEquals(2014, $datetime->format('Y'));
+        $this->assertEquals(11, $datetime->format('m'));
+        $this->assertEquals(3, $datetime->format('d'));
+        $this->assertEquals(15, $datetime->format('H'));
+        $this->assertEquals(6, $datetime->format('i'));
+        $this->assertEquals(45, $datetime->format('s'));
+    }
+
 }
