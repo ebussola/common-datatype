@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Leonardo Shinagawa
  * Date: 20/04/14
  * Time: 13:20
  */
+class OrderedListTest extends PHPUnit_Framework_TestCase
+{
 
-class OrderedListTest extends PHPUnit_Framework_TestCase {
-
-    public function testGeneralUse() {
+    public function testGeneralUse()
+    {
         $date_ordered = new \ebussola\common\datatype\datetime\OrderedList();
 
         $date_ordered->add(new \ebussola\common\datatype\datetime\Date('1986-08-19'), 'Birthday');
@@ -18,9 +20,14 @@ class OrderedListTest extends PHPUnit_Framework_TestCase {
         $i = 1;
         foreach ($date_ordered as $val) {
             switch ($i) {
-                case 1: $this->assertEquals('Pre Birthday', $val); break;
-                case 2: $this->assertEquals('Birthday', $val); break;
-                case 3: $this->assertEquals('Post Birthday', $val);
+                case 1:
+                    $this->assertEquals('Pre Birthday', $val);
+                    break;
+                case 2:
+                    $this->assertEquals('Birthday', $val);
+                    break;
+                case 3:
+                    $this->assertEquals('Post Birthday', $val);
             }
             $i++;
         }

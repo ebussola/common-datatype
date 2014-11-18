@@ -7,7 +7,8 @@ namespace ebussola\common\datatype\exception;
  * Date: 14/08/12
  * Time: 13:58
  */
-class InvalidEnum extends \Exception {
+class InvalidEnum extends \Exception
+{
 
     public $chosen;
 

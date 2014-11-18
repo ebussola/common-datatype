@@ -7,10 +7,11 @@ use ebussola\common\datatype\number\Currency;
  * Date: 21/04/14
  * Time: 21:51
  */
+class CurrencyTest extends PHPUnit_Framework_TestCase
+{
 
-class CurrencyTest extends PHPUnit_Framework_TestCase {
-
-    public function testGeneralUse() {
+    public function testGeneralUse()
+    {
         $amount = new Currency(50, 'pt_BR');
         $this->assertEquals('R$50,00', (string)$amount);
 

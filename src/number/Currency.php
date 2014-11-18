@@ -9,7 +9,8 @@ use ebussola\common\datatype\Number;
  * Date: 05/12/11
  * Time: 11:20
  */
-class Currency extends Number {
+class Currency extends Number
+{
 
     /**
      * @var string
@@ -26,12 +27,14 @@ class Currency extends Number {
      */
     protected $locale;
 
-    public function __construct($value = 0, $locale=null) {
+    public function __construct($value = 0, $locale = null)
+    {
         parent::__construct($value);
         $this->locale = $locale;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         $result = $this->format();
         if ($this->isNegative() && substr($result, 0, 1) !== '(') {
             $result = '(' . str_replace('-', '', $result) . ')';
@@ -44,11 +47,12 @@ class Currency extends Number {
      * @param Number|string $value
      * @return Currency
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         parent::setValue($value);
 
         if (preg_match('/^\(.*\)$/is', trim($value))) {
-            $this->setIsNegative(true);
+            $this->setNegative(true);
             $this->setRawValue('-' . $this->getValue());
         }
 
@@ -60,7 +64,8 @@ class Currency extends Number {
      * {symbol} the currency symbol
      * {number} the value formatted
      */
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $this->format = $format;
     }
 
@@ -68,11 +73,13 @@ class Currency extends Number {
      * @param string $globalFormat
      * @see setFormat
      */
-    public static function setGlobalFormat($globalFormat) {
+    public static function setGlobalFormat($globalFormat)
+    {
         self::$globalFormat = $globalFormat;
     }
 
-    private function format() {
+    private function format()
+    {
         $locale = $this->locale === null ? \Locale::getDefault() : $this->locale;
         $numberFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         $result = $numberFormatter->format($this->getValue());

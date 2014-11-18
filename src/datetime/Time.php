@@ -17,16 +17,19 @@ class Time extends DateTime
      */
     protected $format;
 
-    public function __construct($time = 'now', \DateTimeZone $timezone = null, $locale=null) {
+    public function __construct($time = 'now', \DateTimeZone $timezone = null, $locale = null)
+    {
         parent::__construct($time, $timezone, $locale);
         $this->setDate(1, 1, 1);
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->format($this->format);
     }
 
-    protected function setupDefaultFormat($locale=null) {
+    protected function setupDefaultFormat($locale = null)
+    {
         parent::setupDefaultFormat($locale);
         $this->format = $this->getLanguage()['time_format'];
     }

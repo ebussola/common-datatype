@@ -9,7 +9,8 @@ use ebussola\common\datatype\Number;
  * Date: 17/01/12
  * Time: 14:26
  */
-class Percentage extends Number {
+class Percentage extends Number
+{
 
     /**
      * @var boolean
@@ -25,7 +26,8 @@ class Percentage extends Number {
      *
      * @throws \InvalidArgumentException
      */
-    public function of($number) {
+    public function of($number)
+    {
         $value = clone $this;
         $value->bcmul($number)->bcdiv(100);
         if ($number instanceof Number) {
@@ -45,7 +47,8 @@ class Percentage extends Number {
      * @param boolean $value
      * @return Percentage
      */
-    public function setShowSymbol($value) {
+    public function setShowSymbol($value)
+    {
         $this->showSymbol = (bool)$value;
         return $this;
     }
@@ -53,7 +56,8 @@ class Percentage extends Number {
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         if ($this->showSymbol) {
             return parent::__toString() . '%';
         } else {

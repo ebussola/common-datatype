@@ -1,34 +1,39 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Leonardo Shinagawa
  * Date: 14/04/14
  * Time: 19:08
  */
+class DateTimeTest extends PHPUnit_Framework_TestCase
+{
 
-class DateTimeTest extends PHPUnit_Framework_TestCase {
-
-    public function setUp() {
+    public function setUp()
+    {
         locale_set_default('pt_BR');
     }
 
-    public function testDefaultLocaleUsPosix() {
+    public function testDefaultLocaleUsPosix()
+    {
         locale_set_default('en_US_POSIX');
 
         $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:00:00');
-        $datetime_str = (string) $datetime;
+        $datetime_str = (string)$datetime;
 
         $this->assertEquals('08/19/2014 03:00:00 am', $datetime_str);
     }
 
-    public function testToString() {
+    public function testToString()
+    {
         $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:00:00');
-        $datetime_str = (string) $datetime;
+        $datetime_str = (string)$datetime;
 
         $this->assertEquals('19/08/2014 03:00:00', $datetime_str);
     }
 
-    public function testFormat() {
+    public function testFormat()
+    {
         $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:10:25');
 
         $this->assertEquals($datetime->format('Y'), '2014');
@@ -41,7 +46,8 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($datetime->format('F'), 'Agosto');
     }
 
-    public function testSerialize() {
+    public function testSerialize()
+    {
         $datetime = new \ebussola\common\datatype\DateTime('2014-08-19 03:10:25');
 
         $this->assertEquals('C:33:"ebussola\common\datatype\DateTime":25:{2014-08-19T03:10:25-03:00}', serialize($datetime));
@@ -52,7 +58,8 @@ class DateTimeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals((string)$datetime, (string)$datetime2);
     }
 
-    public function testUnavailableLanguageException() {
+    public function testUnavailableLanguageException()
+    {
         $this->setExpectedException('\ebussola\common\datatype\exception\UnavailableLanguage');
 
         new \ebussola\common\datatype\DateTime('now', null, 'jp');

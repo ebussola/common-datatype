@@ -30,7 +30,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @param Date $date
      * @param mixed $data
      */
-    public function add(Date $date, $data) {
+    public function add(Date $date, $data)
+    {
         $this->offsetSet($date, $data);
     }
 
@@ -40,20 +41,22 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @link http://php.net/manual/en/iterator.current.php
      * @return mixed Can return any type.
      */
-    public function current() {
+    public function current()
+    {
         if (!$this->isOrdered) {
             usort($this->storage, array($this, 'compare'));
             $this->isOrdered = true;
         }
 
-        list($date, $data) = $this->storage[$this->pointer];
+        $data = $this->storage[$this->pointer][1];
 
         return $data;
     }
 
-    private function compare($value1, $value2) {
-        list($date1, $data1) = $value1;
-        list($date2, $data2) = $value2;
+    private function compare($value1, $value2)
+    {
+        $date1 = $value1[0];
+        $date2 = $value2[0];
 
         if ($date1 == $date2) {
             return 0;
@@ -68,7 +71,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @link http://php.net/manual/en/iterator.next.php
      * @return void Any returned value is ignored.
      */
-    public function next() {
+    public function next()
+    {
         $this->pointer++;
     }
 
@@ -79,8 +83,9 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @return String scalar on success, integer
      * 0 on failure.
      */
-    public function key() {
-        /** @var \ebussola\common\datatype\datetime\Date $date  */
+    public function key()
+    {
+        /** @var \ebussola\common\datatype\datetime\Date $date */
         $date = $this->storage[$this->pointer][0];
         return $date->format('Y-m-d');
     }
@@ -92,7 +97,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @return boolean The return value will be casted to boolean and then evaluated.
      * Returns true on success or false on failure.
      */
-    public function valid() {
+    public function valid()
+    {
         return isset($this->storage[$this->pointer]);
     }
 
@@ -102,7 +108,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * @link http://php.net/manual/en/iterator.rewind.php
      * @return void Any returned value is ignored.
      */
-    public function rewind() {
+    public function rewind()
+    {
         $this->pointer = 0;
     }
 
@@ -115,7 +122,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * <p>
      * The return value is cast to an integer.
      */
-    public function count() {
+    public function count()
+    {
         return count($this->storage);
     }
 
@@ -131,7 +139,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * <p>
      * The return value will be casted to boolean if non-boolean was returned.
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         if (!$offset instanceof Date) {
             $offset = new Date($offset);
         }
@@ -140,9 +149,10 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
         return is_null($item) ? false : true;
     }
 
-    private function searchOffset($offset) {
+    private function searchOffset($offset)
+    {
         foreach ($this->storage as $index => $item) {
-            list($date, $data) = array_values($item);
+            $date = array_values($item)[0];
             if ($date == $offset) {
                 return $index;
             }
@@ -160,12 +170,13 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * </p>
      * @return mixed Can return all value types.
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         if (!$offset instanceof Date) {
             $offset = new Date($offset);
         }
+        $value = $this->storage[$this->searchOffset($offset)][1];
 
-        list($date, $value) = $this->storage[$this->searchOffset($offset)];
         return $value;
     }
 
@@ -181,7 +192,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * </p>
      * @return void
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         if (!$offset instanceof Date) {
             $offset = new Date($offset);
         }
@@ -205,7 +217,8 @@ class OrderedList implements \Iterator, \Countable, \ArrayAccess
      * </p>
      * @return void
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         if (!$offset instanceof Date) {
             $offset = new Date($offset);
         }

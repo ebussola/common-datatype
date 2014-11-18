@@ -11,7 +11,8 @@ namespace ebussola\common\datatype;
  *
  * @version 1.0b
  */
-class Number {
+class Number
+{
 
     /**
      * @var string
@@ -36,7 +37,8 @@ class Number {
     /**
      * @param string $value
      */
-    public function __construct($value = 0) {
+    public function __construct($value = 0)
+    {
         if (!extension_loaded('bcmath')) {
             trigger_error('bcmath not loaded, please install the extension: http://php.net/manual/en/book.bc.php');
         }
@@ -48,7 +50,8 @@ class Number {
      * @param string|\ebussola\common\datatype\Number $value
      * @return Number
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         if ($value instanceof Number) {
             $value = $value->getValue();
         } elseif (is_null($value) || $value == '') {
@@ -71,7 +74,8 @@ class Number {
     /**
      * @return string
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
@@ -79,7 +83,8 @@ class Number {
      * @param integer $decimals
      * @return Number
      */
-    public function setDecimals($decimals) {
+    public function setDecimals($decimals)
+    {
         $this->decimals = $decimals;
 
         return $this;
@@ -88,11 +93,13 @@ class Number {
     /**
      * @return int
      */
-    public function getDecimals() {
+    public function getDecimals()
+    {
         return $this->decimals;
     }
 
-    public function __call($name, $args) {
+    public function __call($name, $args)
+    {
         if (substr($name, 0, 2) === 'bc') {
             $this->value = $this->bcCalc($name, $args);
         } else {
@@ -107,7 +114,8 @@ class Number {
      * @param $args
      * @return String
      */
-    protected function bcCalc($name, $args) {
+    protected function bcCalc($name, $args)
+    {
         $value = current($args);
         if ($value instanceof number\Percentage) {
             switch ($name) {
@@ -141,28 +149,32 @@ class Number {
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getNumberFormat();
     }
 
     /**
      * @return bool
      */
-    public function isNegative() {
+    public function isNegative()
+    {
         return (!$this->isZero() && $this->isNegative);
     }
 
     /**
      * @return bool
      */
-    public function isPositive() {
+    public function isPositive()
+    {
         return (!$this->isZero() && !$this->isNegative);
     }
 
     /**
      * @return bool
      */
-    public function isZero() {
+    public function isZero()
+    {
         return bccomp($this->getValue(), 0) === 0;
     }
 
@@ -170,7 +182,8 @@ class Number {
      * @param \ebussola\common\datatype\Number|String $number
      * @return boolean
      */
-    public function isGreater($number) {
+    public function isGreater($number)
+    {
         if ($number instanceof Number) {
             $number = $number->getValue();
         }
@@ -182,7 +195,8 @@ class Number {
      * @param \ebussola\common\datatype\Number|String $number
      * @return boolean
      */
-    public function isLess($number) {
+    public function isLess($number)
+    {
         if ($number instanceof Number) {
             $number = $number->getValue();
         }
@@ -194,7 +208,8 @@ class Number {
      * @param \ebussola\common\datatype\Number|String $number
      * @return bool
      */
-    public function isEqual($number) {
+    public function isEqual($number)
+    {
         if ($number instanceof Number) {
             $number = $number->getValue();
         }
@@ -208,7 +223,8 @@ class Number {
      * @param \ebussola\common\datatype\Number | String $value
      * @return number\Percentage
      */
-    public function of($value) {
+    public function of($value)
+    {
         $number = clone $this;
 
         return new number\Percentage($number->bcdiv($value)->bcmul(100)->getValue());
@@ -220,7 +236,8 @@ class Number {
      * @param Number | float $percentage
      * @return Number
      */
-    public function is($percentage) {
+    public function is($percentage)
+    {
         $number = clone $this;
 
         if ($percentage instanceof Number) {
@@ -233,14 +250,16 @@ class Number {
     /**
      * @param int $precision
      */
-    public function setPrecision($precision) {
+    public function setPrecision($precision)
+    {
         $this->precision = $precision;
     }
 
     /**
      * @return int
      */
-    public function getPrecision() {
+    public function getPrecision()
+    {
         return $this->precision;
     }
 
@@ -250,14 +269,16 @@ class Number {
      *
      * @return Number
      */
-    public function preserve() {
+    public function preserve()
+    {
         return clone $this;
     }
 
     /**
      * @return string
      */
-    private function getNumberFormat() {
+    private function getNumberFormat()
+    {
         $numberFormatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::DECIMAL);
         $decPoint = $numberFormatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
         $thousandPoint = $numberFormatter->getSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
@@ -269,7 +290,8 @@ class Number {
      * @param String $number
      * @return String
      */
-    private function normalize($number) {
+    private function normalize($number)
+    {
         $numberFormatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::DECIMAL);
         $decPoint = $numberFormatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
         $thousandPoint = $numberFormatter->getSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
@@ -283,14 +305,16 @@ class Number {
     /**
      * @param boolean $bool
      */
-    protected function setIsNegative($bool) {
+    protected function setNegative($bool)
+    {
         $this->isNegative = (bool)$bool;
     }
 
     /**
      * @param String $value
      */
-    protected function setRawValue($value) {
+    protected function setRawValue($value)
+    {
         $this->value = $value;
     }
 

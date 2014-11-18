@@ -7,10 +7,11 @@ use ebussola\common\datatype\Number;
  * Date: 21/04/14
  * Time: 21:18
  */
+class NumberTest extends PHPUnit_Framework_TestCase
+{
 
-class NumberTest extends PHPUnit_Framework_TestCase {
-
-    public function testSetValue() {
+    public function testSetValue()
+    {
         $num = new Number(0);
         $this->assertEquals(0, $num->getValue());
 
@@ -28,7 +29,8 @@ class NumberTest extends PHPUnit_Framework_TestCase {
 
     }
 
-    public function testSetDecimal() {
+    public function testSetDecimal()
+    {
         $num = new Number(pi());
         $num->setDecimals(2);
         $this->assertEquals('3,14', (string)$num);
@@ -37,7 +39,8 @@ class NumberTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('3,1415926536', (string)$num);
     }
 
-    public function testMath() {
+    public function testMath()
+    {
         $num = new Number(5);
         $num->bcadd(5);
         $this->assertEquals(10, $num->getValue());
@@ -55,7 +58,8 @@ class NumberTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(5, $num->getValue());
     }
 
-    public function testComparisons() {
+    public function testComparisons()
+    {
         $num = new Number(5);
 
         $this->assertTrue($num->isPositive());
@@ -72,7 +76,8 @@ class NumberTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($num->isNegative());
     }
 
-    public function testPercentageMethods() {
+    public function testPercentageMethods()
+    {
         $num = new Number(50);
         $percent = $num->of(100);
         $this->assertEquals(50, $percent->getValue());
@@ -100,7 +105,8 @@ class NumberTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('6,67', (string)$number->bcdiv($percent));
     }
 
-    public function testPreserve() {
+    public function testPreserve()
+    {
         $num = new Number(123);
         $new_num = $num->preserve()->bcsub(23);
 

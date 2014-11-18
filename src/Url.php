@@ -9,7 +9,8 @@ namespace ebussola\common\datatype;
  *
  * @property $full_address string
  */
-class Url {
+class Url
+{
 
     /**
      * @var string
@@ -71,8 +72,9 @@ class Url {
     /**
      * @param String $address
      */
-    public function __construct($address=null) {
-        if ($address != null) {
+    public function __construct($address = null)
+    {
+        if ($address !== null) {
             $this->setAddress($address);
         }
     }
@@ -80,7 +82,8 @@ class Url {
     /**
      * @param String $address
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $full_address = filter_var($address, FILTER_SANITIZE_URL);
         $info = parse_url($full_address);
 
@@ -115,7 +118,8 @@ class Url {
     /**
      * Assemble the fullAddress from the other properties
      */
-    private function assembleUrl() {
+    private function assembleUrl()
+    {
         $address = '';
         if (!empty($this->scheme)) {
             $address .= $this->scheme . '://';

@@ -9,7 +9,8 @@ use ebussola\common\datatype\Number;
  * Date: 15/03/12
  * Time: 16:18
  */
-class NumberVariation extends Number {
+class NumberVariation extends Number
+{
     /**
      * NumberVariation is a number that can vary in a limit.
      * If the number 10, varies 1 to up and down:
@@ -38,7 +39,8 @@ class NumberVariation extends Number {
      * @param Number|String $limitDown
      * How much this number vary to down
      */
-    public function __construct($value = 0, $limitUp = 0, $limitDown = 0) {
+    public function __construct($value = 0, $limitUp = 0, $limitDown = 0)
+    {
         parent::__construct($value);
         $this->setLimitUp($limitUp);
         $this->setLimitDown($limitDown);
@@ -48,7 +50,8 @@ class NumberVariation extends Number {
      * @param Number $number
      * @return boolean
      */
-    public function isEqual($number) {
+    public function isEqual($number)
+    {
         if (!$number instanceof Number) {
             $number = new Number($number);
         }
@@ -65,7 +68,8 @@ class NumberVariation extends Number {
      * @param Number $number
      * @return bool
      */
-    public function isGreater($number) {
+    public function isGreater($number)
+    {
         if (!$number instanceof Number) {
             $number = new Number($number);
         }
@@ -80,7 +84,8 @@ class NumberVariation extends Number {
      * @param Number $number
      * @return bool
      */
-    public function isLess($number) {
+    public function isLess($number)
+    {
         if (!$number instanceof Number) {
             $number = new Number($number);
         }
@@ -94,7 +99,8 @@ class NumberVariation extends Number {
     /**
      * @param Number|Percentage|String $limitDown
      */
-    public function setLimitDown($limitDown) {
+    public function setLimitDown($limitDown)
+    {
         if ($limitDown instanceof Percentage) {
             $limitDown = $limitDown->of($this->getValue());
         } elseif (!$limitDown instanceof Number) {
@@ -111,14 +117,16 @@ class NumberVariation extends Number {
     /**
      * @return Number
      */
-    public function getLimitDown() {
+    public function getLimitDown()
+    {
         return $this->limitDown;
     }
 
     /**
      * @param Number|Percentage|String $limitUp
      */
-    public function setLimitUp($limitUp) {
+    public function setLimitUp($limitUp)
+    {
         if ($limitUp instanceof Percentage) {
             $limitUp = $limitUp->of($this->getValue());
         } elseif (!$limitUp instanceof Number) {
@@ -131,7 +139,8 @@ class NumberVariation extends Number {
     /**
      * @return Number
      */
-    public function getLimitUp() {
+    public function getLimitUp()
+    {
         return $this->limitUp;
     }
 

@@ -2,11 +2,11 @@
 
 namespace ebussola\common\datatype;
 
-/**
- * User: Leonardo Shinagawa
- * Date: 12/03/13
- * Time: 00:12
- */
+    /**
+     * User: Leonardo Shinagawa
+     * Date: 12/03/13
+     * Time: 00:12
+     */
 
 /**
  * Class String
@@ -108,14 +108,16 @@ namespace ebussola\common\datatype;
  * @method \ebussola\common\datatype\String vsprintf  Return a formatted string
  * @method \ebussola\common\datatype\String wordwrap  Wraps a string to a given number of characters
  */
-class String {
+class String
+{
 
     /**
      * @var string
      */
     private $value;
 
-    public function __construct($value) {
+    public function __construct($value)
+    {
         $this->value = $value;
     }
 
@@ -127,7 +129,8 @@ class String {
      * @param array $args
      * @return String
      */
-    public function __call($name, array $args=array()) {
+    public function __call($name, array $args = array())
+    {
         $param_arr = array_merge(array($this->value), $args);
         $result = call_user_func_array($name, $param_arr);
 
@@ -138,7 +141,8 @@ class String {
         return $result;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return (string)$this->value;
     }
 

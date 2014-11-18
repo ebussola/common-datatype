@@ -35,7 +35,8 @@ class Period implements \Iterator, \Countable
      * @param \DateInterval | int $interval
      * @param \DateTime | int $end
      */
-    public function __construct(\DateTime $start, $interval, $end) {
+    public function __construct(\DateTime $start, $interval, $end)
+    {
         if (!$interval instanceof \DateInterval) {
             $interval = new \DateInterval("P{$interval}D");
         }
@@ -43,7 +44,7 @@ class Period implements \Iterator, \Countable
         if (!$end instanceof \DateTime) {
             $recurrences = $end;
             $end = clone $start;
-            for ($i=0 ; $i<$recurrences ; $i++) {
+            for ($i = 0; $i < $recurrences; $i++) {
                 $end = $end->add($interval);
             }
         }
@@ -57,28 +58,32 @@ class Period implements \Iterator, \Countable
     /**
      * @return \DateTime
      */
-    public function start() {
+    public function start()
+    {
         return $this->start;
     }
 
     /**
      * @return \DateTime
      */
-    public function end() {
+    public function end()
+    {
         return $this->end;
     }
 
     /**
      * @return \DateInterval
      */
-    public function interval() {
+    public function interval()
+    {
         return $this->interval;
     }
 
     /**
      * @return integer
      */
-    public function count() {
+    public function count()
+    {
         $i = 0;
         /** @noinspection PhpUnusedLocalVariableInspection */
         foreach ($this as $date) {

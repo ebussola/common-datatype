@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Leonardo Shinagawa
  * Date: 21/04/14
  * Time: 11:36
  */
+class ArrayListTest extends PHPUnit_Framework_TestCase
+{
 
-class ArrayListTest extends PHPUnit_Framework_TestCase {
-
-    public function testChangeKeyCase() {
+    public function testChangeKeyCase()
+    {
         $arr = new \ebussola\common\datatype\ArrayList();
         $arr['Leo'] = 1;
         $arr['LeoNardo'] = 1;
@@ -35,7 +37,8 @@ class ArrayListTest extends PHPUnit_Framework_TestCase {
 
     }
 
-    public function testChunk() {
+    public function testChunk()
+    {
         $arr = new \ebussola\common\datatype\ArrayList();
         $arr[] = 1;
         $arr[] = 2;
@@ -51,11 +54,12 @@ class ArrayListTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testMap() {
+    public function testMap()
+    {
         $arr = new \ebussola\common\datatype\ArrayList([1, 2, 3, 4, 5, 6]);
 
-        $arr = $arr->map(function($item) {
-            return $item+1;
+        $arr = $arr->map(function ($item) {
+            return $item + 1;
         });
 
         foreach ($arr as $i => $val) {
@@ -82,7 +86,8 @@ class ArrayListTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testSearch() {
+    public function testSearch()
+    {
         $arr = new \ebussola\common\datatype\ArrayList([1, 2, 3, 4, 5]);
         $index = $arr->search(3);
 

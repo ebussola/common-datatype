@@ -1,6 +1,7 @@
 <?php
 
 namespace ebussola\common\datatype;
+
 use ebussola\common\datatype\exception\UnavailableLanguage;
 
 /**
@@ -26,7 +27,8 @@ class DateTime extends \DateTime implements \Serializable
      */
     protected $locale;
 
-    public function __construct($time = 'now', \DateTimeZone $timezone=null, $locale=null) {
+    public function __construct($time = 'now', \DateTimeZone $timezone = null, $locale = null)
+    {
         $this->setupDefaultFormat($locale);
 
         if ($time instanceof \DateTime) {
@@ -41,11 +43,13 @@ class DateTime extends \DateTime implements \Serializable
         }
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->format($this->format);
     }
-    
-    public function format($format) {
+
+    public function format($format)
+    {
         $str = parent::format($format);
 
         return str_replace(array(
@@ -69,13 +73,14 @@ class DateTime extends \DateTime implements \Serializable
                 'Wednesday', 'Wed',
                 'Thursday', 'Thu',
                 'Friday', 'Fri'
-		    ),
+            ),
             $this->getLanguage()['language'],
             $str
         );
     }
 
-    protected function getLanguage() {
+    protected function getLanguage()
+    {
         $locale = $this->locale;
 
         if (!isset(self::$languages[$locale])) {
@@ -96,7 +101,8 @@ class DateTime extends \DateTime implements \Serializable
      * @link http://php.net/manual/en/serializable.serialize.php
      * @return string the string representation of the object or null
      */
-    public function serialize() {
+    public function serialize()
+    {
         return $this->format('c');
     }
 
@@ -109,13 +115,15 @@ class DateTime extends \DateTime implements \Serializable
      * </p>
      * @return mixed the original value unserialized.
      */
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
         parent::__construct($serialized);
         $this->setupDefaultFormat();
         return $this;
     }
 
-    protected function setupDefaultFormat($locale=null) {
+    protected function setupDefaultFormat($locale = null)
+    {
         if ($locale === null) {
             $locale = \Locale::getDefault();
         }

@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Leonardo Shinagawa
  * Date: 20/04/14
  * Time: 13:11
  */
+class TimeTest extends PHPUnit_Framework_TestCase
+{
 
-class TimeTest extends PHPUnit_Framework_TestCase {
-
-    public function testToString() {
+    public function testToString()
+    {
         locale_set_default('pt_BR');
         $time = new \ebussola\common\datatype\datetime\Time('13:15:20');
 

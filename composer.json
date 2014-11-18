@@ -1,5 +1,6 @@
 {
     "name": "ebussola/common-datatype",
+    "description": "Complex DataTypes to easy the use of some routines",
     "license": "MIT",
     "authors": [
         {

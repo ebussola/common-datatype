@@ -113,7 +113,8 @@ class PeriodTest extends PHPUnit_Framework_TestCase
         $this->assertCount(5, $period);
     }
 
-    public function testIterationChangingCurrentDate() {
+    public function testIterationChangingCurrentDate()
+    {
         $period = new \ebussola\common\datatype\datetime\Period(new \DateTime('2014-04-01'), 1, new \DateTime('2014-04-5'));
 
         $i = 1;

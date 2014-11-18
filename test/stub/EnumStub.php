@@ -8,7 +8,8 @@
 
 use ebussola\common\datatype\Enum;
 
-class EnumStub extends Enum {
+class EnumStub extends Enum
+{
 
     /**
      * @return array
@@ -16,7 +17,7 @@ class EnumStub extends Enum {
      */
     public function defaults()
     {
-        return [2=>'STRING', 3=>'INTEGER', 5=>'FLOAT', 0=>'BOOLEAN'];
+        return [2 => 'STRING', 3 => 'INTEGER', 5 => 'FLOAT', 0 => 'BOOLEAN'];
     }
 
     /**

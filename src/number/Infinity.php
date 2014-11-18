@@ -9,7 +9,8 @@ use ebussola\common\datatype\Number;
  * Date: 03/04/12
  * Time: 19:18
  */
-class Infinity extends Number {
+class Infinity extends Number
+{
     /**
      * An Infinity number represents the infinity value, it can be positive or negative.
      * Internally, Infinity is always Zero, but with polarity (+ or -) defining the direction.
@@ -18,34 +19,38 @@ class Infinity extends Number {
     /**
      * @param string $polarity
      */
-    public function __construct($polarity = '+') {
+    public function __construct($polarity = '+')
+    {
         parent::__construct(0);
 
         if ($polarity == '+') {
-            $this->setIsNegative(false);
+            $this->setNegative(false);
         } else {
-            $this->setIsNegative(true);
+            $this->setNegative(true);
         }
     }
 
     /**
      * @return bool
      */
-    public function isNegative() {
+    public function isNegative()
+    {
         return $this->isNegative;
     }
 
     /**
      * @return bool
      */
-    public function isPositive() {
+    public function isPositive()
+    {
         return !$this->isNegative;
     }
 
     /**
      * Just to certifies that infinity will never be other number than 0
      */
-    protected function bcCalc($name, $args) {
+    protected function bcCalc($name, $args)
+    {
         return $this->getValue();
     }
 

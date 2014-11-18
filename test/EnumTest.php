@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Leonardo Shinagawa
  * Date: 21/04/14
  * Time: 12:07
  */
+class EnumTest extends PHPUnit_Framework_TestCase
+{
 
-class EnumTest extends PHPUnit_Framework_TestCase {
-
-    public function testGeneralUse() {
+    public function testGeneralUse()
+    {
         $enum = new EnumStub();
         $this->assertFalse($enum->isValid());
 
@@ -20,21 +22,23 @@ class EnumTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($enum->defaults()));
     }
 
-    public function testException() {
+    public function testException()
+    {
         $this->setExpectedException('\ebussola\common\datatype\exception\InvalidEnum');
 
         $enum = new EnumStub('INVALID');
         $enum->isValid(true);
     }
 
-    public function testInvalidEnum() {
+    public function testInvalidEnum()
+    {
         $enum = new EnumStub('INVALID');
 
         try {
             $enum->isValid(true);
         } catch (\ebussola\common\datatype\exception\InvalidEnum $e) {
             $this->assertEquals('INVALID', $e->chosen);
-            $this->assertEquals([2=>'STRING', 3=>'INTEGER', 5=>'FLOAT', 0=>'BOOLEAN'], $e->available_options);
+            $this->assertEquals([2 => 'STRING', 3 => 'INTEGER', 5 => 'FLOAT', 0 => 'BOOLEAN'], $e->available_options);
         }
     }
 

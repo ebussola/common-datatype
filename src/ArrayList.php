@@ -1,6 +1,7 @@
 <?php
 
 namespace ebussola\common\datatype;
+
 use Doctrine\Common\Inflector\Inflector;
 
 /**
@@ -58,12 +59,14 @@ use Doctrine\Common\Inflector\Inflector;
  * @method ArrayList values             Return all the values of an array
  * @method ArrayList walkRecursive     Apply a user function recursively to every member of an array
  */
-class ArrayList extends \ArrayObject {
+class ArrayList extends \ArrayObject
+{
 
-    public function __call($func, $argv) {
+    public function __call($func, $argv)
+    {
         $func = 'array_' . Inflector::tableize($func);
         if (!is_callable($func)) {
-            throw new \BadMethodCallException(__CLASS__.'->'.$func);
+            throw new \BadMethodCallException(__CLASS__ . '->' . $func);
         }
 
         // some functions don't follow the others array functions argument pattern ¬¬
@@ -89,7 +92,8 @@ class ArrayList extends \ArrayObject {
      * @param Callable $callback
      * @return bool
      */
-    public function walk(Callable $callback) {
+    public function walk(Callable $callback)
+    {
         $arrayCopy = $this->getArrayCopy();
         $result = array_walk($arrayCopy, $callback);
         $this->exchangeArray($arrayCopy);

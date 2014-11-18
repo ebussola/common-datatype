@@ -9,6 +9,7 @@
 namespace ebussola\common\datatype\exception;
 
 
-class UnavailableLanguage extends \Exception {
+class UnavailableLanguage extends \Exception
+{
 
-} 
+}
